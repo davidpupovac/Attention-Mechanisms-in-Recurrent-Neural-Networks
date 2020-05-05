@@ -107,7 +107,7 @@ target_tensor = targ_lang.texts_to_sequences(raw_data_fr) # decoder data in
 target_tensor = tf.keras.preprocessing.sequence.pad_sequences(target_tensor, padding='post')
 
 # ------------------------------------------------------------------------------
-# model basics
+# Model basics
 
 EMBEDDING_SIZE = 32
 LSTM_SIZE = 64
@@ -195,7 +195,7 @@ class BahdanauAttention(tf.keras.layers.Layer):
     return context_vector, attention_weights
 
 # ----
-# check 
+# Check 
 
 attention_layer = BahdanauAttention(10)
 attention_result, attention_weights = attention_layer(sample_hidden, sample_output)
@@ -270,7 +270,7 @@ def loss_function(targets, logits):
 optimizer = tf.keras.optimizers.Adam()
 
 # ----
-@tf.function # not sure what this is...
+@tf.function
 
 
 def train_step(inp, targ, enc_hidden):
@@ -394,7 +394,7 @@ def evaluate(sentence):
   return result, sentence, attention_plot
 
 # -----
-# function for plotting the attention weights
+# Function for plotting the attention weights
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
@@ -474,7 +474,6 @@ raw_data_en = [normalize_string(data) for data in raw_data_en]
 raw_data_fr_in = ['<start> ' + normalize_string(data) for data in raw_data_fr]
 raw_data_fr_out = [normalize_string(data) + ' <end>' for data in raw_data_fr]    
 
-
 # ----
 # English data preprocessing
 
@@ -513,7 +512,7 @@ dataset = tf.data.Dataset.from_tensor_slices((data_en, data_fr_in, data_fr_out))
 dataset = dataset.shuffle(20).batch(5)
 
 # ------------------------------------------------------------------------------
-# model basics
+# Model basics
 
 NUM_EPOCHS = 250
 BATCH_SIZE = 5
@@ -548,7 +547,6 @@ encoder = Encoder(en_vocab_size, EMBEDDING_SIZE, LSTM_SIZE)
 
 # ------------------------------------------------------------------------------
 # Luong Attention
-
 
 class LuongAttention(tf.keras.Model):
     def __init__(self, rnn_size):
